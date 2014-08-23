@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <ctype.h>
+#include <string.h>
 
 int
 main(int argc, char **argv)
@@ -44,10 +45,62 @@ main(int argc, char **argv)
         printf ("Error");
         exit(1);
     }
-
-    /* Print complete file content following od hex format */
+    
     /* od -A x -t x1z -v file.dat */
-
+#define BUF_SIZE 16
+    ssize_t numread;
+    char buf[1];
+    char bufstring[BUF_SIZE];
+    int count = 0;
+    char bandera = 0;
+    while( (read(fd,buf,1)) > 0 )
+    {
+	bandera =1;
+	printf("%02x ",(unsigned int) (buf[0]));
+        bufstring[count]=buf[0];
+	count ++;
+	if (count == 16)
+	{
+		int index;
+		count =0;
+		printf(" ");
+		for(index = 0;index<16;index++)
+		{
+			if (bufstring[index]=='\n')
+			{
+				bufstring[index]='.';
+			}
+			printf("%c",bufstring[index] );
+		}
+		//printf(" >%s>",bufstring);
+		printf("\n");
+		for(index = 0;index<16;index++)
+		{
+			bufstring[index]='\0';
+		}
+		bandera = 0;
+	}
+    }
+	if(bandera = 1)
+	{
+		int index;
+		printf(" ");
+                for (index = count;index<16;index++)
+		{
+			printf("   ");
+	
+		}
+			for(index = 0;index<count;index++)
+		{
+			if (bufstring[index]=='\n')
+			{
+				bufstring[index]='.';
+			}
+		printf("%c",bufstring[index] );
+		}
+		printf("\n");
+	}
+    /* Print complete file content following od       hex format */
     close (fd);
 
     return 0;
