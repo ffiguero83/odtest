@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <ctype.h>
-#include <string.h>
+
 
 int
 main(int argc, char **argv)
