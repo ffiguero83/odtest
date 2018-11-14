@@ -29,7 +29,7 @@ main(int argc, char **argv)
     int fd;
     char *file = NULL;
     unsigned char buff[16];
-
+    printf("hola caballero");
     if(argc != 2)
     {
         printf ("Usage: %s <file>\n", argv[0]);
